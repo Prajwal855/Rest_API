@@ -16,8 +16,19 @@ class RestApiClass:
             print('Error:' + response.status_code)
 
     #
-    def upload_to_server(self):
-        url = "https://jsonplaceholder.typicode.com/posts"
+    def send_post(self,url):
+        payload = {
+            "title":"foo",
+            "body":"Hi",
+            "userId":1
+        }
+        response = requests.post(url=url, data=payload)
+        if response.status_code == 200:
+            print("POST Request is Successfully")
+        else:
+            print("POST Request is Failed")
+
+        print(response.text)
 
 
 print("Testing 1 - Send Http GET request")
@@ -25,8 +36,13 @@ url = "https://jsonplaceholder.typicode.com/posts"
 api_call = RestApiClass(url=url)
 result = api_call.send_get(url=url)
 
-if result:
-    print(result)
 
-    # print("Testing 2 - Send Http POST request")
-    # upload_to_server()
+print("Testing 2 - Send Http POST request")
+url = "https://jsonplaceholder.typicode.com/posts"
+api_call = RestApiClass(url=url)
+result2 = api_call.send_post(url=url)
+
+if result and result2:
+    print(result)
+    print(result2)
+
